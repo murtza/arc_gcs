@@ -60,7 +60,7 @@ defmodule Arc.Storage.GCS do
     url = build_url(path)
     headers = gcs_options ++ default_headers()
 
-    case HTTPoison.put!(url, body, headers) do
+    case HTTPoison.put!(url, body, headers, [timeout: 300_000, recv_timeout: 300_000]) do
       %{status_code: 200} ->
         {:ok, file_name}
       %{body: body} ->
